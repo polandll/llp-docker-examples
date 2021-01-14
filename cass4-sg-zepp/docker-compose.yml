@@ -2,12 +2,12 @@ version: '2'
 
 services:
   backend-1:
-    image: cassandra:3.11.8
+    image: cassandra:${CASSTAG}
     container_name: backend-1
     networks:
       - backend
     ports:
-      - 9044:9042
+      - 10003:9042
     mem_limit: 2G
     environment:
       - HEAP_NEWSIZE=128M
@@ -15,7 +15,7 @@ services:
       - CASSANDRA_SEEDS=backend-1
       - CASSANDRA_CLUSTER_NAME=backend
   backend-2:
-    image: cassandra:3.11.8
+    image: cassandra:${CASSTAG}
     container_name: backend-2
     networks:
       - backend
@@ -28,7 +28,7 @@ services:
       - CASSANDRA_SEEDS=backend-1
       - CASSANDRA_CLUSTER_NAME=backend
   backend-3:
-    image: cassandra:3.11.8
+    image: cassandra:${CASSTAG}
     container_name: backend-3
     networks:
       - backend
@@ -41,34 +41,34 @@ services:
       - CASSANDRA_SEEDS=backend-1
       - CASSANDRA_CLUSTER_NAME=backend
   stargate:
-    image: stargateio/stargate-3_11:v1.0.0
+    image: stargateio/stargate-4_0:${SGTAG}
     container_name: stargate
     depends_on:
       - backend-1
     networks:
       - backend
     ports:
-      - 9045:9042
-      - 8080:8080
-      - 8081:8081
-      - 8082:8082
-      - 8085:8085
+      - 10004:9042
+      - 18080:8080
+      - 18081:8081
+      - 18082:8082
+      - 18085:8085
     mem_limit: 2G
     environment:
       - JAVA_OPTS="-Xmx2G"
       - CLUSTER_NAME=backend
-      - CLUSTER_VERSION=3.11
+      - CLUSTER_VERSION=4.0
       - SEED=backend-1
       - SIMPLE_SNITCH=true
       - ENABLE_AUTH=true
   zeppelin:
-    image: apache/zeppelin:0.9.0
+    image: apache/zeppelin:${ZEPPTAG}
     container_name: zeppelin
     depends_on:
       - backend-1
     networks:
       - backend
     ports:
-      - 8088:8080
+      - 10005:8080
 networks:
   backend:
