@@ -14,7 +14,7 @@ services:
       - MAX_HEAP_SIZE=1024M
       - SEEDS=backend-1
       - CLUSTER_NAME=dse${DSETAG}-cluster
-      - DC=dc1
+      - DC=datacenter1
       - RACK=rack1
       - DS_LICENSE=accept
   backend-2:
@@ -30,7 +30,7 @@ services:
       - MAX_HEAP_SIZE=1024M
       - SEEDS=backend-1
       - CLUSTER_NAME=dse${DSETAG}-cluster
-      - DC=dc1
+      - DC=datacenter1
       - RACK=rack1
       - DS_LICENSE=accept
   backend-3:
@@ -46,7 +46,7 @@ services:
       - MAX_HEAP_SIZE=1024M
       - SEEDS=backend-1
       - CLUSTER_NAME=dse${DSETAG}-cluster
-      - DC=dc1
+      - DC=datacenter1
       - DS_LICENSE=accept
   stargate:
     image: stargateio/stargate-dse-68:${SGTAG}
@@ -69,7 +69,7 @@ services:
       - DSE=1
       - SEED=backend-1
       - RACK_NAME=rack1
-      - DATACENTER_NAME=dc1
+      - DATACENTER_NAME=datacenter1
       - ENABLE_AUTH=true
       - SIMPLE_SNITCH=true
   zeppelin:
