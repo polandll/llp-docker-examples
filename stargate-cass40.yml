@@ -41,7 +41,7 @@ services:
       - CASSANDRA_SEEDS=backend-1
       - CASSANDRA_CLUSTER_NAME=backend
   stargate:
-    image: stargateio/stargate-4_0:v1.0.0
+    image: stargateio/stargate-4_0:v1.0.18
     container_name: stargate
     depends_on: 
       - backend-1

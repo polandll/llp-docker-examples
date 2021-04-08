@@ -1,6 +1,7 @@
 #!/bin/sh
 
-#COMPOSE_FILE=stargate-prometheus-grafana.yml
+export CASSTAG=3.11.10
+export SGTAG=v1.0.18
 
 # Make sure backend-1, the seed node, is up before bringing up other nodes and stargate
 docker-compose up -d backend-1

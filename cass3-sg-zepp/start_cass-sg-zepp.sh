@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export CASSTAG=3.11.10
+export CASSTAG=3.11.10-1
 export SGTAG=v1.0.18
 export ZEPPTAG=0.9.0
 
