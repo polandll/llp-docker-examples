@@ -7,6 +7,7 @@ services:
       - backend
     ports:
       - 10010:9042
+      - 9044:9044
     mem_limit: 2G
     environment:
       - HEAP_NEWSIZE=128M

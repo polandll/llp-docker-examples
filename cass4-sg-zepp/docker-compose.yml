@@ -7,7 +7,7 @@ services:
     networks:
       - backend
     ports:
-      - 10003:9042
+      - 9042:9042
     mem_limit: 2G
     environment:
       - HEAP_NEWSIZE=128M
@@ -49,13 +49,13 @@ services:
       - backend
     ports:
       - 10004:9042
-      - 18080:8080
-      - 18081:8081
-      - 18082:8082
-      - 18085:8085
+      - 8080:8080
+      - 8081:8081
+      - 8082:8082
+      - 8085:8085
     mem_limit: 2G
     environment:
-      - JAVA_OPTS="-Xmx2G"
+      - JAVA_OPTS="-Xmx2G" -Dstargate.auth_tokenttl=8000 -Dstargate.graphql_first.enabled=true
       - CLUSTER_NAME=backend
       - CLUSTER_VERSION=4.0
       - SEED=backend-1
@@ -69,6 +69,6 @@ services:
     networks:
       - backend
     ports:
-      - 10005:8080
+      - 18080:8080
 networks:
   backend:
