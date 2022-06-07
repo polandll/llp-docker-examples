@@ -4,11 +4,10 @@ services:
   backend-1:
     image: datastax/dse-server:${DSETAG}
     networks:
-      - backend
+      - backend-studio
     ports:
-      - 10010:9042
+      - 9042:9042
       - 9044:9044
-      - 8182:8182
     mem_limit: 2G
     environment:
       - HEAP_NEWSIZE=128M
@@ -21,7 +20,7 @@ services:
   backend-2:
     image: datastax/dse-server:${DSETAG}
     networks:
-      - backend
+      - backend-studio
     mem_limit: 2G
     depends_on:
       - backend-1
@@ -36,7 +35,7 @@ services:
   backend-3:
     image: datastax/dse-server:${DSETAG}
     networks:
-      - backend
+      - backend-studio
     mem_limit: 2G
     depends_on:
       - backend-2
@@ -47,36 +46,15 @@ services:
       - CLUSTER_NAME=dse${DSETAG}-cluster
       - DC=datacenter1
       - DS_LICENSE=accept
-  stargate:
-    image: stargateio/stargate-dse-68:${SGTAG}
+  studio:
+    image: datastax/dse-studio:${STUDIOTAG}
     depends_on: 
       - backend-1
-    networks:
-      - backend
-    ports:
-      - 10011:9042
-      - 11080:8080
-      - 11081:8081
-      - 11082:8082
-      - 11085:8085
-    mem_limit: 2G
     environment:
-      - JAVA_OPTS="-Xmx2G"
-      - CLUSTER_NAME=dse${DSETAG}-cluster
-      - CLUSTER_VERSION=6.8
-      - DSE=1
-      - SEED=backend-1
-      - RACK_NAME=rack1
-      - DATACENTER_NAME=datacenter1
-      - ENABLE_AUTH=true
-      - SIMPLE_SNITCH=true
-  zeppelin:
-    image: apache/zeppelin:${ZEPPTAG}
-    depends_on:
-      - backend-1
+      - DS_LICENSE=accept
     networks:
-      - backend
+      - backend-studio
     ports:
-      - 10012:8080
+      - 9091:9091
 networks:
-  backend:
+  backend-studio:

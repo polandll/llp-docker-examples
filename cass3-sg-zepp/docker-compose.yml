@@ -6,7 +6,7 @@ services:
     networks:
       - backend
     ports:
-      - 10000:9042
+      - 9042:9042
     mem_limit: 2G
     environment:
       - HEAP_NEWSIZE=128M

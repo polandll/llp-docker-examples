@@ -1,0 +1,5 @@
+{"description":"Must provide a body to the request"}--_curl_--
+>     "username": "cassandra"
+--_curl_--
+>     "password": "cassandra"
+> 
