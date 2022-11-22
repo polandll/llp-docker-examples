@@ -1,7 +1,7 @@
 #!/bin/sh
 
 export CASSTAG=4.0
-export SGTAG=v1.0.55
+export SGTAG=v1.0.57
 export ZEPPTAG=0.9.0
 
 # Make sure backend-1, the seed node, is up before bringing up other nodes and stargate
@@ -27,4 +27,4 @@ while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:8082/healt
 done
 
 # Bring up zeppelin
-docker compose up -d zeppelin
+#docker compose up -d zeppelin
