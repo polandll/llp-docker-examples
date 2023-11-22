@@ -1,0 +1,53 @@
+version: '2'
+
+services:
+  backend-1:
+    image: cassandra:${CASSTAG}
+    container_name: backend-1
+    networks:
+      - backend
+    ports:
+      - 9042:9042
+    mem_limit: 2G
+    environment:
+      - HEAP_NEWSIZE=128M
+      - MAX_HEAP_SIZE=1024M
+      - CASSANDRA_SEEDS=backend-1
+      - CASSANDRA_CLUSTER_NAME=backend
+  backend-2:
+    image: cassandra:${CASSTAG}
+    container_name: backend-2
+    networks:
+      - backend
+    mem_limit: 2G
+    depends_on:
+      - backend-1
+    environment:
+      - HEAP_NEWSIZE=128M
+      - MAX_HEAP_SIZE=1024M
+      - CASSANDRA_SEEDS=backend-1
+      - CASSANDRA_CLUSTER_NAME=backend
+  backend-3:
+    image: cassandra:${CASSTAG}
+    container_name: backend-3
+    networks:
+      - backend
+    mem_limit: 2G
+    depends_on:
+      - backend-2
+    environment:
+      - HEAP_NEWSIZE=128M
+      - MAX_HEAP_SIZE=1024M
+      - CASSANDRA_SEEDS=backend-1
+      - CASSANDRA_CLUSTER_NAME=backend
+  zeppelin:
+    image: apache/zeppelin:${ZEPPTAG}
+    container_name: zeppelin
+    depends_on:
+      - backend-1
+    networks:
+      - backend
+    ports:
+      - 18080:8080
+networks:
+  backend:
