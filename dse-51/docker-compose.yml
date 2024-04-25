@@ -1,0 +1,48 @@
+services:
+  backend-dse51-1:
+    image: datastax/dse-server:${DSETAG}
+    container_name: backend-dse51-1
+    networks:
+      - backend
+    ports:
+      - ${fwd_port}:${std_port}
+    mem_limit: 2G
+    environment:
+      - HEAP_NEWSIZE=128M
+      - MAX_HEAP_SIZE=1024M
+      - SEEDS=backend-dse51-1
+      - CLUSTER_NAME=dse${DSETAG}-cluster
+      - DS_LICENSE=accept
+    volumes:
+      - /Users/lorinapoland/CLONES/docker-examples/dse-51/cassandra.yaml:/etc/cassandra/cassandra.yaml
+      - /Users/lorinapoland/CLONES/cql-docs/docs-src/cql-core/modules/cycling-examples/examples:/examples
+  backend-dse51-2:
+    image: datastax/dse-server:${DSETAG}
+    container_name: backend-dse51-2
+    networks:
+      - backend
+    mem_limit: 2G
+    depends_on:
+      - backend-dse51-1
+    environment:
+      - HEAP_NEWSIZE=128M
+      - MAX_HEAP_SIZE=1024M
+      - SEEDS=backend-dse51-1
+      - CLUSTER_NAME=dse${DSETAG}-cluster
+      - DS_LICENSE=accept
+  backend-dse51-3:
+    image: datastax/dse-server:${DSETAG}
+    container_name: backend-dse51-3
+    networks:
+      - backend
+    mem_limit: 2G
+    depends_on:
+      - backend-dse51-1
+    environment:
+      - HEAP_NEWSIZE=128M
+      - MAX_HEAP_SIZE=1024M
+      - SEEDS=backend-dse51-1
+      - CLUSTER_NAME=dse${DSETAG}-cluster
+      - DS_LICENSE=accept
+networks:
+  backend:

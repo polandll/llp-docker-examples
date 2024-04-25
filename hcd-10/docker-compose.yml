@@ -1,0 +1,48 @@
+services:
+  backend-hcd10-1:
+    image: cr.dtsx.io/datastax/dse-server:${HCDTAG}
+    container_name: backend-hcd10-1
+    networks:
+      - backend
+    ports:
+      - ${fwd_port}:${std_port}
+    mem_limit: 2G
+    environment:
+      - HEAP_NEWSIZE=128M
+      - MAX_HEAP_SIZE=1024M
+      - CASSANDRA_SEEDS=backend-hcd10-1
+      - CASSANDRA_CLUSTER_NAME=hcd${HCDTAG}-cluster
+      - DS_LICENSE=accept
+    volumes:
+      - /Users/lorinapoland/CLONES/docker-examples/hcd-10/cassandra.yaml:/etc/cassandra/cassandra.yaml
+      - /Users/lorinapoland/CLONES/cql-docs/docs-src/cql-core/modules/cycling-examples/examples:/examples
+  backend-hcd10-2:
+    image: cr.dtsx.io/datastax/dse-server:${HCDTAG}
+    container_name: backend-hcd10
+    networks:
+      - backend
+    mem_limit: 2G
+    depends_on:
+      - backend-hcd10-1
+    environment:
+      - HEAP_NEWSIZE=128M
+      - MAX_HEAP_SIZE=1024M
+      - CASSANDRA_SEEDS=backend-1
+      - CASSANDRA_CLUSTER_NAME=hcd${HCDTAG}-cluster
+      - DS_LICENSE=accept
+  backend-hcd10-3:
+    image: cr.dtsx.io/datastax/dse-server:${HCDTAG}
+    container_name: backend-hcd10-3
+    networks:
+      - backend
+    mem_limit: 2G
+    depends_on:
+      - backend-2
+    environment:
+      - HEAP_NEWSIZE=128M
+      - MAX_HEAP_SIZE=1024M
+      - CASSANDRA_SEEDS=backend-hcd10-1
+      - CASSANDRA_CLUSTER_NAME=hcd${HCDTAG}-cluster
+      - DS_LICENSE=accept
+networks:
+  backend:

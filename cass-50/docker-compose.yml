@@ -1,0 +1,45 @@
+services:
+  backend-cass-1:
+    image: cassandra:${CASSTAG}
+    container_name: backend-cass-1
+    networks:
+      - backend
+    ports:
+      - ${fwd_port}:${std_port}
+    mem_limit: 2G
+    environment:
+      - HEAP_NEWSIZE=128M
+      - MAX_HEAP_SIZE=1024M
+      - CASSANDRA_SEEDS=backend-cass-1
+      - CASSANDRA_CLUSTER_NAME=cass${CASSTAG}-cluster
+    volumes:
+      - /Users/lorinapoland/CLONES/docker-examples/cass-50/cassandra.yaml:/etc/cassandra/cassandra.yaml
+      - /Users/lorinapoland/CLONES/cql-docs/docs-src/cql-core/modules/cycling-examples/examples:/examples
+  backend-cass-2:
+    image: cassandra:${CASSTAG}
+    container_name: backend-cass-2
+    networks:
+      - backend
+    mem_limit: 2G
+    depends_on:
+      - backend-cass-1
+    environment:
+      - HEAP_NEWSIZE=128M
+      - MAX_HEAP_SIZE=1024M
+      - CASSANDRA_SEEDS=backend-cass-1
+      - CASSANDRA_CLUSTER_NAME=cass${CASSTAG}-cluster
+  backend-cass-3:
+    image: cassandra:${CASSTAG}
+    container_name: backend-cass-3
+    networks:
+      - backend
+    mem_limit: 2G
+    depends_on:
+      - backend-cass-2
+    environment:
+      - HEAP_NEWSIZE=128M
+      - MAX_HEAP_SIZE=1024M
+      - CASSANDRA_SEEDS=backend-cass-1
+      - CASSANDRA_CLUSTER_NAME=cass${CASSTAG}-cluster
+networks:
+  backend:

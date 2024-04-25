@@ -1,9 +1,9 @@
 version: '2'
 
 services:
-  backend-1:
+  backend-1-4.0:
     image: cassandra:${CASSTAG}
-    container_name: backend-1
+    container_name: backend-1-4.0
     networks:
       - backend
     ports:
@@ -12,8 +12,10 @@ services:
     environment:
       - HEAP_NEWSIZE=128M
       - MAX_HEAP_SIZE=1024M
-      - CASSANDRA_SEEDS=backend-1
+      - CASSANDRA_SEEDS=backend-1-4.0
       - CASSANDRA_CLUSTER_NAME=backend
+    volumes:
+      - /Users/lorinapoland/CLONES/docker-examples/cass4-sg-zepp/cassandra.yaml:/etc/cassandra/cassandra.yaml
   backend-2:
     image: cassandra:${CASSTAG}
     container_name: backend-2
@@ -21,11 +23,11 @@ services:
       - backend
     mem_limit: 2G
     depends_on:
-      - backend-1
+      - backend-1-4.0
     environment:
       - HEAP_NEWSIZE=128M
       - MAX_HEAP_SIZE=1024M
-      - CASSANDRA_SEEDS=backend-1
+      - CASSANDRA_SEEDS=backend-1-4.0
       - CASSANDRA_CLUSTER_NAME=backend
   backend-3:
     image: cassandra:${CASSTAG}
@@ -38,13 +40,36 @@ services:
     environment:
       - HEAP_NEWSIZE=128M
       - MAX_HEAP_SIZE=1024M
-      - CASSANDRA_SEEDS=backend-1
+      - CASSANDRA_SEEDS=backend-1-4.0
       - CASSANDRA_CLUSTER_NAME=backend
+  stargate:
+    image: stargateio/stargate-4_0:${SGTAG}
+    container_name: stargate
+    depends_on:
+      - backend-1-4.0
+    networks:
+      - backend
+    ports:
+      - 10004:9042
+      - 8080:8080
+      - 8081:8081
+      - 8082:8082
+      - 8085:8085
+      - 8090:8090
+    mem_limit: 2G
+    environment:
+      - JAVA_OPTS="-Xmx2G" -Dstargate.auth_tokenttl=8000 -Dstargate.graphql_first.enabled=true
+      - CLUSTER_NAME=backend
+      - CLUSTER_VERSION=4.0
+      - SEED=backend-1-4.0
+      - SIMPLE_SNITCH=true
+      - ENABLE_AUTH=true
+      - DEVELOPER_MODE=true
   zeppelin:
     image: apache/zeppelin:${ZEPPTAG}
     container_name: zeppelin
     depends_on:
-      - backend-1
+      - backend-1-4.0
     networks:
       - backend
     ports:

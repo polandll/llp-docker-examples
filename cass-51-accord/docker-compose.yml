@@ -6,5 +6,5 @@ services:
       - ./scripts:/scripts
     command: /bin/bash /scripts/clone-repo.sh
     ports:
-      - 9042:9042
+      - 9041:9042
 
