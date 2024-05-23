@@ -23,7 +23,7 @@ services:
       - backend
     mem_limit: 2G
     depends_on:
-      - backend-1
+      - backend-dse69-1
     environment:
       - HEAP_NEWSIZE=128M
       - MAX_HEAP_SIZE=1024M
@@ -37,7 +37,7 @@ services:
       - backend
     mem_limit: 2G
     depends_on:
-      - backend-2
+      - backend-dse69-1
     environment:
       - HEAP_NEWSIZE=128M
       - MAX_HEAP_SIZE=1024M
