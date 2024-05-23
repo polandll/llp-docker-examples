@@ -2,8 +2,11 @@
 
 echo -e "\nenter the number of nodes you want to bring up: (1-3)"
 read num_nodes
+echo -e "\nbring up mission control? (y or n)"
+read mc
 
 export HCDTAG=1.0.0-early-preview
+export MCTAG=latest
 export std_port=9042
 export fwd_port=9034
 export node_name_1='backend-hcd10-1'
@@ -30,4 +33,9 @@ elif [ "$num_nodes" -eq 3 ]; then
     docker compose up  -d ${node_name_3}
     (docker compose logs -f ${node_name_3} &) | grep -q "is now part of the cluster"
     echo "Three nodes requested, ${node_name_1}, ${node_name_2}, and ${node_name_3} are up and running."
+fi
+if [ "$mc" = "y" ]; then
+    # Bring up mission-control
+    docker-compose up -d mission-control
+    echo "Mission control up"
 fi

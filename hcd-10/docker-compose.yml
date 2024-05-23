@@ -44,5 +44,11 @@ services:
       - CASSANDRA_SEEDS=backend-hcd10-1
       - CASSANDRA_CLUSTER_NAME=hcd${HCDTAG}-cluster
       - DS_LICENSE=accept
+  mission-control:
+    image: datastax/mission-control:${MCTAG}
+    depends_on:
+      - backend-hcd10-1
+    networks:
+      - backend
 networks:
   backend:
