@@ -14,7 +14,7 @@ services:
       - CASSANDRA_CLUSTER_NAME=hcd${HCDTAG}-cluster
       - DS_LICENSE=accept
     volumes:
-      - /Users/lorinapoland/CLONES/docker-examples/hcd-10/cassandra.yaml:/etc/cassandra/cassandra.yaml
+      - /Users/lorinapoland/CLONES/docker-examples/hcd-10/cassandra.yaml:/opt/hcd/resources/cassandra/conf/cassandra.yaml
       - /Users/lorinapoland/CLONES/cql-docs/docs-src/cql-core/modules/cycling-examples/examples:/examples
   backend-hcd10-2:
     image: datastax/hcd:${HCDTAG}
