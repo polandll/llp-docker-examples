@@ -1,6 +1,6 @@
 # Docker Compose scripts for JSONAPI with DSE-6.9
 
-This directory provides two ways to start the Data API with DSE-6.9 or HCD using `docker compose`.
+This directory provides two ways to start the Data API with DSE-6.9 using `docker compose`.
 
 ## Prerequisites
 
@@ -27,12 +27,6 @@ You can start a simple configuration with DSE 6.9 with the following command:
 ./start_dse69.sh
 ``` 
 
-You can start a simple configuration with HCD with the following command:
-
-```
-./start_hcd.sh
-``` 
-
 This convenience script verifies your Docker installation meets minimum requirements and brings up the configuration described in the `docker-compose.yml` file. The configuration includes health criteria for each container that is used to ensure the containers come up in the correct order.
 
 The convenience script uses the `-d` and `--wait` options to track the startup progress, so that the compose command exits when all containers have started and reported healthy status within a specified timeout. 
@@ -54,9 +48,8 @@ Both convenience scripts support the following options:
 
 * You can enable reguest logging for the Data API using `-q`: if so, each request is logged under category `io.quarkus.http.access-log`
 
-* You can start dse/hcd node only using `-d` option. This is useful when you want to start Data API locally for development.
 
 ## Notes
 
 * The `.env` file defines variables for the docker compose project name (`COMPOSE_PROJECT_NAME`),
- the DSE Docker image tag to use (`DSETAG`) and the HCD Docker image tag to use (`HCDTAG`).
+ the DSE Docker image tag to use (`DSETAG`).
