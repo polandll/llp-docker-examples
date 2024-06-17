@@ -13,6 +13,7 @@ services:
       - HCD_AUTO_CONF_OFF=cassandra.yaml
     volumes:
       - ${PWD}/cassandra-hcd.yaml:/opt/hcd/resources/cassandra/conf/cassandra.yaml:rw
+      - ${PWD}/cassandra-env.sh:/opt/hcd/resources/cassandra/conf/cassandra-env.sh:rw
       - /Users/lorinapoland/CLONES/cql-docs/docs-src/cql-core/modules/cycling-examples/examples:/examples:rw
     ports:
       - ${fwd_port}:${std_port}
