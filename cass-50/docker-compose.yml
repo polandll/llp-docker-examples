@@ -13,7 +13,7 @@ services:
       - CASSANDRA_SEEDS=backend-cass-1
       - CASSANDRA_CLUSTER_NAME=cass${CASSTAG}-cluster
     volumes:
-      - /Users/lorinapoland/CLONES/docker-examples/cass-50/cassandra.yaml:/etc/cassandra/cassandra.yaml
+      - /Users/lorinapoland/CLONES/docker-examples/cass-50/cassandra.yaml:/opt/cassandra/conf/cassandra.yaml
       - /Users/lorinapoland/CLONES/cql-docs/docs-src/cql-core/modules/cycling-examples/examples:/examples
   backend-cass-2:
     image: cassandra:${CASSTAG}

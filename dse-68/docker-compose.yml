@@ -16,8 +16,8 @@ services:
       - RACK=rack1
       - DS_LICENSE=accept
     volumes:
-      - /Users/lorinapoland/CLONES/docker-examples/dse-68/cassandra.yaml:/etc/cassandra/cassandra.yaml
-      - /Users/lorinapoland/CLONES/cql-docs/docs-src/cql-core/modules/cycling-examples/examples:/examples
+      - {${PWD}/cassandra.yaml:/opt/dse/resources/cassandra/conf/cassandra.yaml:rw
+      - /Users/lorinapoland/CLONES/cql-docs/docs-src/cql-core/modules/cycling-examples/examples:/examples:rw
   backend-dse68-2:
     image: datastax/dse-server:${DSETAG}
     container_name: backend-dse68-2

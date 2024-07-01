@@ -12,7 +12,7 @@ services:
       - DS_LICENSE=accept
     volumes:
       - ${PWD}/dse.yaml:/opt/dse/resources/dse/conf/dse.yaml
-      - ${PWD}/cassandra.yaml:/etc/cassandra/cassandra.yaml:rw
+      - ${PWD}/cassandra.yaml:/opt/dse/resources/cassandra/conf/cassandra.yaml:r
       - /Users/lorinapoland/CLONES/cql-docs/docs-src/cql-core/modules/cycling-examples/examples:/examples:rw
     ports:
       - ${fwd_port}:${std_port}

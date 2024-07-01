@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  hcd:
+    image: datastax/hcd:${HCDTAG}
+    networks:
+      - stargate
+    mem_limit: 2G
+    environment:
+      - MAX_HEAP_SIZE=1536M
+      - CLUSTER_NAME=hcd-${HCDTAG}-cluster
+      - DS_LICENSE=accept
+      - HCD_AUTO_CONF_OFF=cassandra.yaml
+    volumes:
+      - ${PWD}/cassandra-hcd.yaml:/opt/hcd/resources/cassandra/conf/cassandra.yaml:rw
+      - ${PWD}/cassandra-env.sh:/opt/hcd/resources/cassandra/conf/cassandra-env.sh:rw
+      - /Users/lorinapoland/CLONES/cql-docs/docs-src/cql-core/modules/cycling-examples/examples:/examples:rw
+    ports:
+      - ${fwd_port}:${std_port}
+    healthcheck:
+      test: [ "CMD-SHELL", "cqlsh -u cassandra -p cassandra -e 'describe keyspaces'" ]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+  spark:
+    image: docker.io/bitnami/spark:3.5
+    networks:
+      - stargate
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+      - SPARK_USER=spark
+    ports:
+      - '8080:8080'
+  spark-worker:
+    image: docker.io/bitnami/spark:3.5
+    networks:
+      - stargate
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+      - SPARK_USER=spark
+      - SPARK_USER=spark
+    ports:
+      - '8085:8080'
+networks:
+  stargate:

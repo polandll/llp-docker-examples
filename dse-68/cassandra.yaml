@@ -1120,7 +1120,7 @@ enable_user_defined_functions: true
 #
 # Note that JavaScript UDFs are noticeable slower and produce more garbage on the heap than Java UDFs
 # and can therefore negatively affect overall database performance.
-enable_scripted_user_defined_functions: false
+enable_scripted_user_defined_functions: true
 
 # Optionally disable asynchronous UDF execution.
 # Note: Java UDFs are not run asynchronously.

@@ -311,7 +311,15 @@ export CDC_PULSAR_AUTH_PLUGIN_CLASS_NAME="org.apache.pulsar.client.impl.auth.Aut
 export CDC_PULSAR_AUTH_PARAMS="file://</path/to/token/file>"
 
 # needed when Pulsar TLS encryption is enabled
-export CDC_TLS_TRUST_CERTS_FILE_PATH=”</path/to/trusted/cert/file>”
+#export CDC_TLS_TRUST_CERTS_FILE_PATH=”</path/to/trusted/cert/file>”
 
 # HCD CDC
 #JVM_OPTS="$JVM_OPTS -javaagent:/home/automaton/cdc104/agent-dse4-<version>-all.jar"
+cassandra_storagedir="/var/lib/cassandra"
+cassandra_storagedir="/var/lib/cassandra"
+cassandra_storagedir="/var/lib/cassandra"
+cassandra_storagedir="/var/lib/cassandra"
+cassandra_storagedir="/var/lib/cassandra"
+cassandra_storagedir="/var/lib/cassandra"
+cassandra_storagedir="/var/lib/cassandra"
+cassandra_storagedir="/var/lib/cassandra"

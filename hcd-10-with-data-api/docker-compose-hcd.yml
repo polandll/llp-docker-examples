@@ -13,7 +13,7 @@ services:
       - HCD_AUTO_CONF_OFF=cassandra.yaml
     volumes:
       - ${PWD}/cassandra-hcd.yaml:/opt/hcd/resources/cassandra/conf/cassandra.yaml:rw
-      - ${PWD}/cassandra-env.sh:/opt/hcd/resources/cassandra/conf/cassandra-env.sh:rw
+#      - ${PWD}/cassandra-env.sh:/opt/hcd/resources/cassandra/conf/cassandra-env.sh:rw
       - /Users/lorinapoland/CLONES/cql-docs/docs-src/cql-core/modules/cycling-examples/examples:/examples:rw
     ports:
       - ${fwd_port}:${std_port}
@@ -24,7 +24,8 @@ services:
       retries: 20
 
   data-api:
-    image: ${DATAAPIIMAGE}:${DATAAPITAG}
+    #image: ${DATAAPIIMAGE}:${DATAAPITAG}
+    image: stargateio/data-api:v1.0.12
     depends_on:
       hcd:
         condition: service_healthy
@@ -43,6 +44,7 @@ services:
       - QUARKUS_HTTP_ACCESS_LOG_ENABLED=${REQUESTLOG}
       - QUARKUS_LOG_LEVEL=${LOGLEVEL}
       - STARGATE_JSONAPI_OPERATIONS_VECTORIZE_ENABLED=true
+      - STARGATE_DATABASE_LIMITS_INDEXES_AVAILABLE_PER_DATABASE=100
       - JAVA_OPTS_APPEND=-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager
     healthcheck:
       test: curl -f http://localhost:8181/stargate/health || exit 1
