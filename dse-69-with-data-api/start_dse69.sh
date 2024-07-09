@@ -10,11 +10,11 @@ fi
 LOGLEVEL=INFO
 
 # Default to images used in project integration tests
-DSETAG=6.9.0-early-preview
+DSETAG=6.9.0-rc.3
 #DSETAG="$(../mvnw -f .. help:evaluate -Pdse69-it -Dexpression=stargate.int-test.cassandra.image-tag -q -DforceStdout)"
 
 # Default to latest released version
-DATAAPITAG="v1"
+DATAAPITAG="v1.0.13"
 DATAAPIIMAGE="stargateio/data-api"
 DSEONLY="false"
 

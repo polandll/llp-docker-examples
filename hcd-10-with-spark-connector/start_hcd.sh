@@ -11,7 +11,7 @@ LOGLEVEL=INFO
 
 # Default to images used in project integration tests
 #HCDTAG="$(../mvnw -f .. help:evaluate -Phcd-it -Dexpression=stargate.int-test.cassandra.image-tag -q -DforceStdout)"
-export HCDTAG=1.0.0-early-preview.1
+export HCDTAG=1.0.0-rc.1
 
 # Default to latest released version
 HCDONLY="false"

@@ -67,7 +67,7 @@ authentication_options:
   enabled: true
   default_scheme: internal
   other_schemes:
-  scheme_permissions: false
+  scheme_permissions: true
   allow_digest_with_kerberos: false
   plain_text_without_ssl: warn
   transitional_mode: disabled
@@ -91,8 +91,8 @@ authentication_options:
 # mode_by_authentication allows and overrides the defined mode based on the authentication scheme.
 # The allow values are either internal or ldap. If not set, the defined mode will be used.
 #
-# role_management_options:
-#     mode: internal
+role_management_options:
+     mode: internal
 #     stats: false
 #     mode_by_authentication:
 #         internal:
@@ -121,10 +121,10 @@ authentication_options:
 #
 # allow_row_level_security - To use row level security, set to true for the entire system.
 #                            Use the same setting on all nodes.
-# authorization_options:
-#     enabled: false
+authorization_options:
+     enabled: true
 #     transitional_mode: disabled
-#     allow_row_level_security: false
+     allow_row_level_security: true
 
 ##########################
 # Kerberos options

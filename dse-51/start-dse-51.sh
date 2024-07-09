@@ -3,7 +3,7 @@
 echo -e "\nenter the number of nodes you want to bring up: (1-3)"
 read num_nodes
 
-export DSETAG=5.1.43
+export DSETAG=5.1.45
 export std_port=9042
 export fwd_port=9032
 export node_name_1='backend-dse51-1'
